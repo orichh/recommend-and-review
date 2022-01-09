@@ -1,0 +1,19 @@
+{
+  "name": "recommend-and-review",
+  "version": "1.0.0",
+  "description": "site where users can list movies, books, shows, etc that they enjoyed and share recommendations to friends",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/richardhyesungo/recommend-and-review.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/richardhyesungo/recommend-and-review/issues"
+  },
+  "homepage": "https://github.com/richardhyesungo/recommend-and-review#readme"
+}
