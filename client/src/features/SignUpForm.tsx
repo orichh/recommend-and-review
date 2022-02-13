@@ -5,7 +5,6 @@ import { Checkbox, FormGroup } from "@mui/material";
 import {
   GenericErrorMessage,
   Loading,
-  SelectDropdown,
   InputField,
   SubmitButton,
 } from "../components";
@@ -18,45 +17,15 @@ import {
   MultiFieldWrapper,
 } from "./styles.css";
 
-interface FormData {
-  label: string;
-  value: string;
-}
 export const SignUpForm = (): JSX.Element => {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [revealPassword, setRevealPassword] = useState<Boolean>(false);
-  const [occupations, setOccupations] = useState<Array<FormData>>([{label: "", value: ""}]); //prettier-ignore
-  const [occupation, setOccupation] = useState<string>("");
-  const [states, setStates] = useState<Array<FormData>>([{label: "", value: ""}]); //prettier-ignore
-  const [residentState, setResidentState] = useState<string>("");
   const [formSubmitted, setFormSubmitted] = useState<Boolean>(false);
-  const [apiDataError, setApiDataError] = useState<Boolean>(false);
-  const { data, loading, error } = useRequest(getRequest, "form"); //prettier-ignore --- custom hook
-
-  // transform data and pass to setStates and setOccupations
-  useEffect(() => {
-    if (data) {
-      try {
-        setStates(
-          data.states.map((state: { name: string }) => ({
-            label: state.name,
-            value: state.name,
-          }))
-        );
-        setOccupations(
-          data.occupations.map((job: string) => ({
-            label: job,
-            value: job,
-          }))
-        );
-      } catch {
-        setApiDataError(true);
-      }
-    }
-  }, [data]);
+  // const [apiDataError, setApiDataError] = useState<Boolean>(false);
+  // const { data, loading, error } = useRequest(getRequest, "form"); //prettier-ignore --- custom hook
 
   // reset form input states after user successfully signs up
   useEffect(() => {
@@ -65,8 +34,6 @@ export const SignUpForm = (): JSX.Element => {
       setLastName("");
       setEmail("");
       setPassword("");
-      setOccupation("");
-      setResidentState("");
       setRevealPassword(false);
       setFormSubmitted(false);
     }
@@ -88,21 +55,14 @@ export const SignUpForm = (): JSX.Element => {
     event.preventDefault();
 
     // validate all entries have at least one character
-    const isValid = [
-      firstName,
-      lastName,
-      email,
-      password,
-      occupation,
-      residentState,
-    ].every((input) => input.length > 0);
+    const isValid = [firstName, lastName, email, password].every(
+      (input) => input.length > 0
+    );
 
     const payload = {
       name: firstName + " " + lastName,
       email: email,
       password: password,
-      occupation: occupation,
-      state: residentState,
     };
 
     if (isValid) {
@@ -121,75 +81,52 @@ export const SignUpForm = (): JSX.Element => {
 
   return (
     <>
-      {loading ? (
-        <Loading />
-      ) : error || apiDataError ? (
-        <GenericErrorMessage />
-      ) : (
-        <>
-          <SignUpWrapper>
-            <h1 id="signup">Create your free account</h1>
+      <SignUpWrapper>
+        <h1 id="signup">Create your free account</h1>
 
-            <FormWrapper>
-              <MultiFieldWrapper>
-                <InputField
-                  handleChange={handleChange}
-                  label="First Name"
-                  value={firstName}
-                />
-                <InputField
-                  handleChange={handleChange}
-                  label="Last Name"
-                  value={lastName}
-                />
-              </MultiFieldWrapper>
+        <FormWrapper>
+          <MultiFieldWrapper>
+            <InputField
+              handleChange={handleChange}
+              label="First Name"
+              value={firstName}
+            />
+            <InputField
+              handleChange={handleChange}
+              label="Last Name"
+              value={lastName}
+            />
+          </MultiFieldWrapper>
 
-              <MultiFieldWrapper>
-                <InputField
-                  handleChange={handleChange}
-                  label="Email"
-                  value={email}
-                />
-              </MultiFieldWrapper>
+          <MultiFieldWrapper>
+            <InputField
+              handleChange={handleChange}
+              label="Email"
+              value={email}
+            />
+          </MultiFieldWrapper>
 
-              <MultiFieldWrapper>
-                <SelectDropdown
-                  setField={setResidentState}
-                  selectOptions={states}
-                  resetDropdown={formSubmitted}
-                  label={"State"}
-                />
-                <SelectDropdown
-                  setField={setOccupation}
-                  selectOptions={occupations}
-                  resetDropdown={formSubmitted}
-                  label={"Occupation"}
-                />
-              </MultiFieldWrapper>
+          <PasswordFieldWrapper>
+            <InputField
+              handleChange={handleChange}
+              label="Password"
+              value={password}
+              revealPassword={revealPassword}
+            />
+          </PasswordFieldWrapper>
 
-              <PasswordFieldWrapper>
-                <InputField
-                  handleChange={handleChange}
-                  label="Password"
-                  value={password}
-                  revealPassword={revealPassword}
-                />
-              </PasswordFieldWrapper>
-
-              <CheckboxSubmitWrapper>
-                <FormGroup>
-                  <StyledFormControlLabel
-                    control={<Checkbox onChange={() => setRevealPassword(!revealPassword)}/>} //prettier-ignore
-                    label="Show password"
-                    key={formSubmitted.toString()}
-                  />
-                </FormGroup>
-                <SubmitButton handleClick={handleSubmit} label="Sign Up!" />
-              </CheckboxSubmitWrapper>
-            </FormWrapper>
-          </SignUpWrapper>
-        </>
-      )}
+          <CheckboxSubmitWrapper>
+            <FormGroup>
+              <StyledFormControlLabel
+                control={<Checkbox onChange={() => setRevealPassword(!revealPassword)}/>} //prettier-ignore
+                label="Show password"
+                key={formSubmitted.toString()}
+              />
+            </FormGroup>
+            <SubmitButton handleClick={handleSubmit} label="Sign Up!" />
+          </CheckboxSubmitWrapper>
+        </FormWrapper>
+      </SignUpWrapper>
     </>
   );
 };

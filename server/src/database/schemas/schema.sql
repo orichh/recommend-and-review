@@ -21,4 +21,4 @@ CREATE TABLE IF NOT EXISTS users_lists (
   user_id BIGSERIAL NOT NULL REFERENCES users
 );
 
-INSERT INTO movies (name) VALUES ('Interstellar')
+INSERT INTO movies (name) VALUES ('Interstellar');
