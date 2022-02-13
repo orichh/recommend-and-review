@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = axios.create({baseURL: "https://frontend-take-home.fetchrewards.com"}) //prettier-ignore
+const BASE_URL = axios.create({baseURL: "http://localhost:5000"}) //prettier-ignore
 
 export const getRequest = (url: string) => {
   return BASE_URL({
