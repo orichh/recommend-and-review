@@ -1,0 +1,24 @@
+-- CREATE DATABASE recommend_and_review
+
+CREATE TABLE IF NOT EXISTS users (
+  id BIGSERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS movies (
+  id BIGSERIAL PRIMARY KEY,
+    name VARCHAR (100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS users_lists (
+  id BIGSERIAL PRIMARY KEY,
+  date_added DATE NOT NULL,
+  rating INTEGER NOT NULL,
+  movie_id BIGSERIAL NOT NULL REFERENCES movies,
+  user_id BIGSERIAL NOT NULL REFERENCES users
+);
+
+INSERT INTO movies (name) VALUES ('Interstellar')
