@@ -24,4 +24,4 @@ CREATE TABLE IF NOT EXISTS users_lists (
 );
 
 -- INSERT INTO movies (name) VALUES ('Interstellar');
-
+-- ALTER TABLE users_lists ADD UNIQUE (movie_id);

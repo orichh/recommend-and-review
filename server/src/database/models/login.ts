@@ -3,7 +3,7 @@ import { pool } from "../index";
 // check if email and password match
 export const getPasswordForUser = (email: string) => {
   const queryString = `
-    SELECT id, password
+    SELECT *
       FROM users
      WHERE email=$1
   `;
@@ -17,7 +17,7 @@ export const getPasswordForUser = (email: string) => {
 
 export const getUserLists = (id: number) => {
   const queryString = `
-    SELECT u.id, m.name, u.first_name, u.last_name, ul.date_added, ul.rating
+    SELECT m.name, ul.date_added, ul.rating
     FROM users_lists as ul
     JOIN movies as m ON m.id=ul.movie_id
     JOIN users as u ON u.id=ul.user_id

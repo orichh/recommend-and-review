@@ -9,6 +9,7 @@ import {
   CheckboxSubmitWrapper,
 } from "./styles.css";
 import { FormGroup, Checkbox } from "@mui/material";
+import { postRequest } from "../api";
 
 export const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -26,7 +27,20 @@ export const Login = () => {
   };
 
   const handleSubmit = (event: any) => {
-    login("Richard");
+    const payload = { email, password };
+
+    postRequest("/api/v1/login", payload)
+      .then((response: any) => {
+        console.log(
+          "🚀 ~ file: Login.tsx ~ line 34 ~ .then ~ response",
+          response.data
+        );
+
+        login(response.data);
+      })
+      .catch((error: any) => {
+        alert("wrong email or password");
+      });
   };
 
   return (

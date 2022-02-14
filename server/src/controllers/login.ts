@@ -19,12 +19,19 @@ export const login = (req: any, res: any) => {
       .then((response: any) => {
         const userPassword = response.rows[0].password;
         const userId = response.rows[0].id;
+        const firstName = response.rows[0].first_name;
+        const lastName = response.rows[0].last_name;
+        const email = response.rows[0].email;
 
         // if password matches, send back user id and user's lists
         if (userPassword === password) {
           getUserLists(userId)
             .then((response: any) => {
-              const payload = { userId: userId, data: response.rows };
+              const payload = {
+                userId,
+                userInfo: { firstName, lastName, email },
+                data: response.rows,
+              };
               res.send(payload);
             })
             .catch((error: any) => {
