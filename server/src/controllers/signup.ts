@@ -20,10 +20,6 @@ export const signup = (req: any, res: any) => {
   if (error === undefined) {
     addUser(value)
       .then((response: any) => {
-        console.log(
-          "🚀 ~ file: signup.ts ~ line 23 ~ .then ~ response",
-          response
-        );
         res.sendStatus(201);
       })
       .catch((error: any) => {
@@ -34,7 +30,6 @@ export const signup = (req: any, res: any) => {
           res.sendStatus(500);
         }
       });
-    console.log("🚀 ~ file: signup.ts ~ line 22 ~ signup ~ value", value);
   } else {
     res.sendStatus(400);
   }
