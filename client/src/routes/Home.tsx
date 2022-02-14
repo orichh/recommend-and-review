@@ -1,15 +1,9 @@
-import { Link } from "react-router-dom";
+import { useEffect, useContext } from "react";
 import { Login } from "../features";
+import { UserContext } from "../contexts/UserContext";
 
 export const Home = (props: any) => {
-  return (
-    <div>
-      <h1>Welcome!</h1>
-      <Login />
-      <br />
-      <Link to="/signup" id="signup-link">
-        sign up!
-      </Link>
-    </div>
-  );
+  const { user } = useContext(UserContext);
+
+  return user.auth ? <div>hello</div> : <Login />;
 };

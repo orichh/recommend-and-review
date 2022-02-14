@@ -6,6 +6,7 @@ import { BrowserTracing } from "@sentry/tracing";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { UserProvider } from "./contexts/UserContext";
 
 Sentry.init({
   dsn: "https://f195d38a5d644314b3cbfdc5a8be9d3a@o1142458.ingest.sentry.io/6201481",
@@ -19,9 +20,11 @@ Sentry.init({
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </UserProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

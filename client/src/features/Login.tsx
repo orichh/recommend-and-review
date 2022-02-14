@@ -1,5 +1,7 @@
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
 import { InputField, SubmitButton } from "../components";
-import { useState } from "react";
 import {
   FormWrapper,
   SignUpWrapper,
@@ -12,7 +14,7 @@ export const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [revealPassword, setRevealPassword] = useState<Boolean>(false);
-  const [formSubmitted, setFormSubmitted] = useState<Boolean>(false);
+  const { login } = useContext(UserContext);
 
   // handle user input and update state accordingly
   const handleChange = (event: any) => {
@@ -24,11 +26,12 @@ export const Login = () => {
   };
 
   const handleSubmit = (event: any) => {
-    alert("hit");
+    login("Richard");
   };
 
   return (
     <>
+      <h1>Welcome!</h1>
       <SignUpWrapper>
         <FormWrapper>
           <InputField handleChange={handleChange} label="Email" value={email} />
@@ -43,13 +46,16 @@ export const Login = () => {
               <StyledFormControlLabel
                 control={<Checkbox onChange={() => setRevealPassword(!revealPassword)}/>} //prettier-ignore
                 label="Show password"
-                key={formSubmitted.toString()}
               />
             </FormGroup>
             <SubmitButton handleClick={handleSubmit} label="Login" />
           </CheckboxSubmitWrapper>
         </FormWrapper>
       </SignUpWrapper>
+      <br />
+      <Link to="/signup" id="signup-link">
+        sign up!
+      </Link>
     </>
   );
 };

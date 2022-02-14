@@ -1,6 +1,5 @@
-import { pool } from "../index";
+import { getAllMovies } from "./getAllMovies";
+import { addUser } from "./addUser";
+import { getPasswordForUser } from "./login";
 
-export const getAllMovies = () => {
-  const queryString = `SELECT * FROM movies;`;
-  return pool.query(queryString);
-};
+export { getAllMovies, addUser, getPasswordForUser };
