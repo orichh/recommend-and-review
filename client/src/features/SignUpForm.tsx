@@ -60,13 +60,14 @@ export const SignUpForm = (): JSX.Element => {
     );
 
     const payload = {
-      name: firstName + " " + lastName,
+      first_name: firstName,
+      last_name: lastName,
       email: email,
       password: password,
     };
 
     if (isValid) {
-      postRequest("form", payload)
+      postRequest("/api/v1/signup", payload)
         .then((response) => {
           alert("Account created!");
           setFormSubmitted(true);
