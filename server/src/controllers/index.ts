@@ -2,6 +2,6 @@ import { getTest } from "./test";
 import { getMovies } from "./movies";
 import { signup } from "./signup";
 import { login } from "./login";
-import { addToList } from "./userLists";
+import { addToList, getLists } from "./userLists";
 
-export { getTest, getMovies, signup, login, addToList };
+export { getTest, getMovies, signup, login, addToList, getLists };

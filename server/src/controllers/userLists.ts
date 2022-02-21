@@ -1,4 +1,4 @@
-import { addToUserList } from "../database/models";
+import { addToUserList, getUserLists } from "../database/models";
 import Joi from "joi";
 
 const addItemSchema = Joi.object({
@@ -23,4 +23,18 @@ export const addToList = (req: any, res: any) => {
   } else {
     res.sendStatus(400);
   }
+};
+
+export const getLists = (req: any, res: any) => {
+  const userId = req.body.id;
+  getUserLists(userId)
+    .then((response: any) => {
+      const payload = {
+        data: response.rows,
+      };
+      res.send(payload);
+    })
+    .catch((error: any) => {
+      res.sendStatus(500);
+    });
 };
