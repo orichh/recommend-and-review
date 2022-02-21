@@ -1,13 +1,15 @@
 import { useContext } from "react";
+import { Header, PrimarySearchAppBar } from "../components";
 import { UserContext } from "../contexts/UserContext";
+import { Profile } from "./Profile";
 
 export const LoggedIn = () => {
   const { user, lists, logout } = useContext(UserContext);
 
   return (
     <>
-      <button onClick={logout}>logout</button>
-      <h1>Welcome back, {user.firstName}</h1>
+      <PrimarySearchAppBar logout={logout} />
+      <Profile />
       <div>
         <ol>
           {lists.map((element, index, array) => {

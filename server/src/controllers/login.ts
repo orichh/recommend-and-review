@@ -1,4 +1,4 @@
-import { getPasswordForUser, getUserLists } from "../database/models/login";
+import { getUserLists, getPasswordForUser } from "../database/models";
 import Joi from "joi";
 
 const userSchema = Joi.object({
