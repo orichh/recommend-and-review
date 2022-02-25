@@ -48,3 +48,9 @@ export const SignUpWrapper = styled(Box)({
   flex: 10,
   width: "100%",
 });
+
+export const StyledHeader = styled(Box)({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-evenly",
+});

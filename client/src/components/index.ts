@@ -5,6 +5,8 @@ import { InputField } from "./InputField";
 import { SubmitButton } from "./SubmitButton";
 import { Header } from "./Header";
 import PrimarySearchAppBar from "./PrimarySearchAppBar";
+import { CategoryList } from "./CategoryList";
+import { ListItem } from "./ListItem";
 
 export {
   GenericErrorMessage,
@@ -14,4 +16,6 @@ export {
   SubmitButton,
   Header,
   PrimarySearchAppBar,
+  CategoryList,
+  ListItem,
 };

@@ -30,6 +30,10 @@ export const Login = () => {
 
   const handleSubmit = (event: any) => {
     const payload = { email, password };
+    console.log(
+      "🚀 ~ file: Login.tsx ~ line 33 ~ handleSubmit ~ payload",
+      payload
+    );
 
     postRequest("/api/v1/login", payload)
       .then((response: any) => {

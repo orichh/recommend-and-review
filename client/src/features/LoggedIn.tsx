@@ -1,7 +1,8 @@
 import { useContext } from "react";
-import { Header, PrimarySearchAppBar } from "../components";
+import { Categories } from ".";
+import { PrimarySearchAppBar } from "../components";
 import { UserContext } from "../contexts/UserContext";
-import { Profile } from "./Profile";
+import { CategoryLists } from "./CategoryLists";
 
 export const LoggedIn = () => {
   const { user, lists, logout } = useContext(UserContext);
@@ -9,18 +10,10 @@ export const LoggedIn = () => {
   return (
     <>
       <PrimarySearchAppBar logout={logout} />
-      <Profile />
       <div>
-        <ol>
-          {lists.map((element, index, array) => {
-            return (
-              <li key={element.id + element.name}>
-                {element.name} {element.rating} {element.date_added}
-              </li>
-            );
-          })}
-        </ol>
+        {user.firstName} {user.lastName}
       </div>
+      <Categories />
     </>
   );
 };
