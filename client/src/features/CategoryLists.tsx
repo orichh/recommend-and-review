@@ -1,6 +1,6 @@
 import { CategoryList } from "../components";
 
-export const CategoryLists = ({ lists }) => {
+export const CategoryLists = ({ watched, list }) => {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div
@@ -14,9 +14,9 @@ export const CategoryLists = ({ lists }) => {
           maxWidth: "60em",
         }}
       >
-        <CategoryList listName="List" lists={lists} />
-        <CategoryList listName="On Deck" lists={lists} />
-        <CategoryList listName="Watched" lists={lists} />
+        <CategoryList listName="List" lists={list} />
+        {/* <CategoryList listName="On Deck" lists={lists} /> */}
+        <CategoryList listName="Watched" lists={watched} />
       </div>
     </div>
   );

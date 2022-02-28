@@ -3,7 +3,8 @@ export const ListItem = ({ element }) => {
     <>
       <div style={{ display: "flex", border: "1px black solid" }}>
         <div key={element.id + element.name}>
-          {element.name} {element.rating} {element.date_added}
+          {element.name} {element.rating} {element.date_added}{" "}
+          {element.watched.toString()}
         </div>
       </div>
     </>

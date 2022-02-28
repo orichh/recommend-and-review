@@ -1,10 +1,19 @@
 import { ListItem } from ".";
+import { useEffect } from "react";
 
 export const CategoryList = ({ listName, lists }) => {
+  const handleSubmit = (e: any) => {
+    alert("hit");
+  };
+
+  useEffect(() => {
+    console.log("category list lists", lists);
+  }, [lists]);
+
   return (
     <div>
       <h1>{listName}</h1>
-      <button>add</button>
+      <button onClick={handleSubmit}>add</button>
       {lists.length ? (
         <ol>
           {lists.map((element, index, array) => {
@@ -12,7 +21,7 @@ export const CategoryList = ({ listName, lists }) => {
           })}
         </ol>
       ) : (
-        <div>error</div>
+        <div>nothing here</div>
       )}
     </div>
   );
