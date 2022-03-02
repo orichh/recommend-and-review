@@ -13,6 +13,7 @@ export const LoggedIn = () => {
       <div>
         {user.firstName} {user.lastName}
       </div>
+      <hr />
       <Categories />
     </>
   );

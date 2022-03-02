@@ -36,6 +36,7 @@ export const Categories = () => {
         <h2>Books</h2>
         <h2>Games</h2>
       </StyledHeader>
+      <hr />
       <CategoryLists watched={watched} list={list} />
     </>
   );

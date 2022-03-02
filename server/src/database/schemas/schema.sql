@@ -18,10 +18,10 @@ CREATE TABLE IF NOT EXISTS movies (
 CREATE TABLE IF NOT EXISTS users_lists (
   id BIGSERIAL PRIMARY KEY,
   date_added DATE NOT NULL,
-  rating INTEGER NOT NULL,
+  rating INTEGER,
   watched BOOLEAN NOT NULL,
-  movie_id BIGSERIAL UNIQUE NOT NULL REFERENCES movies,
-  user_id BIGSERIAL NOT NULL REFERENCES users
+  movie_id INTEGER UNIQUE NOT NULL REFERENCES movies,
+  user_id INTEGER NOT NULL REFERENCES users
 );
 
 -- INSERT INTO movies (name) VALUES ('Interstellar');

@@ -11,15 +11,33 @@ export const CategoryList = ({ listName, lists }) => {
   }, [lists]);
 
   return (
-    <div>
-      <h1>{listName}</h1>
-      <button onClick={handleSubmit}>add</button>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        border: "1px solid black",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          border: "1px solid black",
+          width: "100%",
+          minWidth: "15em",
+        }}
+      >
+        <h1>{listName}</h1>
+        <button onClick={handleSubmit} style={{ cursor: "pointer" }}>
+          add
+        </button>
+      </div>
       {lists.length ? (
-        <ol>
+        <>
           {lists.map((element, index, array) => {
             return <ListItem element={element} />;
           })}
-        </ol>
+        </>
       ) : (
         <div>nothing here</div>
       )}

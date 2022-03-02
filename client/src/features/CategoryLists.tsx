@@ -12,6 +12,7 @@ export const CategoryLists = ({ watched, list }) => {
           width: "90vw",
           maxHeight: "50em",
           maxWidth: "60em",
+          justifyContent: "space-evenly",
         }}
       >
         <CategoryList listName="List" lists={list} />
