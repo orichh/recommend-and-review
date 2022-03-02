@@ -3,11 +3,15 @@
 }
 
 .category {
-  border: 1px solid red;
   cursor: pointer;
+  font-size: 20px;
+  padding-inline: 10px;
+}
+
+.category:hover {
+  color: red;
 }
 
 .selected {
   font-size: 50px;
-  border: 1px solid red;
 }
