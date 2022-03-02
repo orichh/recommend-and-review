@@ -13,10 +13,11 @@ export const CategoryLists = ({ watched, list }) => {
           maxHeight: "50em",
           maxWidth: "60em",
           justifyContent: "space-evenly",
+          alignItems: "baseline",
         }}
       >
         <CategoryList listName="List" lists={list} />
-        {/* <CategoryList listName="On Deck" lists={lists} /> */}
+        <CategoryList listName="On Deck" lists={list} />
         <CategoryList listName="Watched" lists={watched} />
       </div>
     </div>
