@@ -4,6 +4,7 @@ import {
   addMovieToDatabase,
   getMovieByName,
   addToUserList,
+  getUserLists,
 } from "../database/models";
 
 export const getMovies = (req: any, res: any) => {
@@ -38,13 +39,21 @@ export const addMovie = (req: any, res: any) => {
               movie_id = parseInt(test.rows[0].id);
               addToUserList({ watched, movie_id, user_id })
                 .then(() => {
-                  res.status(200).send("successfully added to user list 40");
+                  getUserLists(user_id)
+                    .then((data: any) => {
+                      res.status(200).send(data.rows);
+                    })
+                    .catch((error: any) => {
+                      res.status(500).send("error getting user lists");
+                    });
                 })
-                .catch(() => {
+                .catch((error: any) => {
+                  console.log("error on line 44", error);
                   res.status(500).send("error adding to user list 43");
                 });
             })
-            .catch(() => {
+            .catch((error: any) => {
+              console.log("error line 48", error);
               res.status(500).send("error adding");
             });
         } else {

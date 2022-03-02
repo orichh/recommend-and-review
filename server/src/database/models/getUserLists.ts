@@ -7,6 +7,7 @@ export const getUserLists = (id: number) => {
     JOIN movies as m ON m.id=ul.movie_id
     JOIN users as u ON u.id=ul.user_id
     WHERE u.id = $1
+    ORDER BY ul.date_added DESC;
   `;
   const query = {
     name: "get-user-lists",

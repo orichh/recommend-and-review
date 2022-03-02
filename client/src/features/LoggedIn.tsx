@@ -2,17 +2,24 @@ import { useContext } from "react";
 import { Categories } from ".";
 import { PrimarySearchAppBar } from "../components";
 import { UserContext } from "../contexts/UserContext";
-import { CategoryLists } from "./CategoryLists";
+import { styled } from "@mui/styles";
+
+const StyledUser = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  height: "5em",
+  alignItems: "center",
+});
 
 export const LoggedIn = () => {
-  const { user, lists, logout } = useContext(UserContext);
+  const { user, logout } = useContext(UserContext);
 
   return (
     <>
       <PrimarySearchAppBar logout={logout} />
-      <div>
+      <StyledUser>
         {user.firstName} {user.lastName}
-      </div>
+      </StyledUser>
       <hr />
       <Categories />
     </>

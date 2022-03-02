@@ -3,6 +3,8 @@ export const ListItem = ({ element }) => {
     <>
       <div style={{ display: "flex", border: "1px black solid", width: "90%" }}>
         <div key={element.id + element.name}>{element.name}</div>
+        <button>move</button>
+        <button>delete</button>
       </div>
     </>
   );

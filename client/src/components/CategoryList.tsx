@@ -1,13 +1,50 @@
-import { ListItem } from ".";
-import { useEffect } from "react";
+import { InputField, ListItem } from ".";
+import { useContext, useEffect, useState } from "react";
+import { postRequest } from "../api";
+import { UserContext } from "../contexts/UserContext";
 
-export const CategoryList = ({ listName, lists }) => {
+type ListType = {
+  listName: string;
+  lists: string[];
+  setList?: Function;
+};
+
+export const CategoryList = ({ listName, lists, setList }: ListType) => {
+  const [showAddInput, setShowAddInput] = useState(false);
+  const [newItem, setNewItem] = useState("");
+  const { user } = useContext(UserContext);
+
+  const handleClick = (e: any) => {
+    e.preventDefault();
+    setShowAddInput(!showAddInput);
+  };
+
+  const handleChange = (e: any) => {
+    e.preventDefault();
+    setNewItem(e.target.value);
+  };
+
   const handleSubmit = (e: any) => {
-    alert("hit");
+    e.preventDefault();
+    // console.log(user.userId);
+    const payload = {
+      movieName: newItem,
+      user_id: user.userId,
+      watched: false,
+    };
+    postRequest("/api/v1/movies", payload)
+      .then((response) => {
+        setList(response.data);
+        setNewItem("");
+        alert("success");
+      })
+      .catch((error) => {
+        alert("error");
+      });
   };
 
   useEffect(() => {
-    console.log("category list lists", lists);
+    console.log("lists", lists);
   }, [lists]);
 
   return (
@@ -28,16 +65,29 @@ export const CategoryList = ({ listName, lists }) => {
         }}
       >
         <h1>{listName}</h1>
-        <button onClick={handleSubmit} style={{ cursor: "pointer" }}>
-          add
+        <button onClick={handleClick} style={{ cursor: "pointer" }}>
+          {showAddInput ? "close" : "add"}
         </button>
       </div>
+
+      {/* conditional rendering of text input */}
+      {showAddInput ? (
+        <div>
+          <InputField
+            label={"Add to " + listName}
+            value={newItem}
+            handleChange={handleChange}
+          />
+          <button onClick={handleSubmit}>Add</button>
+          <button onClick={handleClick}>Cancel</button>
+        </div>
+      ) : null}
       {lists.length ? (
-        <>
+        <div style={{ overflowY: "scroll" }}>
           {lists.map((element, index, array) => {
             return <ListItem element={element} />;
           })}
-        </>
+        </div>
       ) : (
         <div>nothing here</div>
       )}

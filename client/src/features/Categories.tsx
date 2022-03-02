@@ -73,7 +73,12 @@ export const Categories = () => {
         </h1>
       </StyledHeader>
       <hr />
-      <CategoryLists watched={watched} list={list} />
+      <CategoryLists
+        watched={watched}
+        setWatched={setWatched}
+        list={list}
+        setList={setList}
+      />
     </>
   );
 };

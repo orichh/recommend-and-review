@@ -8,7 +8,7 @@ export const addMovieToDatabase = (movieName: string) => {
     RETURNING id
   `;
   const query = {
-    name: "add-movie-to-list",
+    name: "add-movie",
     text: queryString,
     values: [movieName],
   };
