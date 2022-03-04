@@ -16,3 +16,11 @@ export const postRequest = (url: string, data: any) => {
     data: data,
   });
 };
+
+export const deleteRequest = (url: string, data: any) => {
+  return BASE_URL({
+    method: "DELETE",
+    url: url,
+    data: data,
+  });
+};

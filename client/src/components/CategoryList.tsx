@@ -102,7 +102,13 @@ export const CategoryList = ({ listName, lists, setList }: ListType) => {
           }}
         >
           {lists.map((element, index, array) => {
-            return <ListItem element={element} />;
+            return (
+              <ListItem
+                element={element}
+                user_id={user.userId}
+                setList={setList}
+              />
+            );
           })}
         </div>
       ) : (

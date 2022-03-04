@@ -1,4 +1,31 @@
-export const ListItem = ({ element }) => {
+import { useEffect } from "react";
+import { deleteRequest } from "../api";
+export const ListItem = ({ element, user_id, setList }) => {
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    const payload = {
+      user_id: user_id,
+      list_id: element.id,
+    };
+    deleteRequest("/api/v1/lists", payload)
+      .then((response) => {
+        setList(response.data);
+        alert("deleted");
+      })
+      .catch(() => alert("error deleting"));
+
+    /*
+      on click, send post request to endpoint
+      what am i sending with the post request?
+      need the list it's on, and the id of it
+
+
+    */
+  };
+  useEffect(() => {
+    console.log("element in line 21", element, user_id);
+  }, [element, user_id]);
+
   return (
     <>
       <div
@@ -16,7 +43,9 @@ export const ListItem = ({ element }) => {
           alert("meh");
         }}
       >
-        <div key={element.id + element.name}>{element.name}</div>
+        <div key={element.id + element.name}>
+          {element.name} + {element.id}
+        </div>
         <button
           style={{ cursor: "pointer" }}
           onClick={(e) => {
@@ -26,7 +55,9 @@ export const ListItem = ({ element }) => {
         >
           move
         </button>
-        <button style={{ cursor: "pointer" }}>delete</button>
+        <button style={{ cursor: "pointer" }} onClick={handleDelete}>
+          delete
+        </button>
       </div>
     </>
   );

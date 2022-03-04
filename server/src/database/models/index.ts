@@ -4,6 +4,7 @@ import { getPasswordForUser } from "./login";
 import { addToUserList } from "./addToUserList";
 import { getUserLists } from "./getUserLists";
 import { addMovieToDatabase } from "./addMovie";
+import { deleteItemFromUserList } from "./user_lists/deleteItem";
 
 export {
   getAllMovies,
@@ -13,4 +14,5 @@ export {
   getUserLists,
   addMovieToDatabase,
   getMovieByName,
+  deleteItemFromUserList,
 };

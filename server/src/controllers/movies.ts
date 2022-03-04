@@ -30,6 +30,7 @@ export const addMovie = (req: any, res: any) => {
     const { movieName, watched, user_id } = value;
     let movie_id: number;
 
+    // TODO: change this to async await
     getMovieByName(movieName)
       .then((data: any) => {
         if (data.rows.length === 0) {
