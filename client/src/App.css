@@ -20,5 +20,11 @@
 }
 
 h1 {
-  font-weight: 300;
+  font-weight: 600;
+}
+
+hr {
+  height: 1px;
+  background-color: #d0d7de;
+  border: none;
 }

@@ -54,4 +54,5 @@ export const StyledHeader = styled(Box)({
   flexDirection: "row",
   justifyContent: "center",
   alignItems: "baseline",
+  borderBottom: "1px solid black",
 });

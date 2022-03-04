@@ -18,6 +18,22 @@ export const LoggedIn = () => {
     <>
       <PrimarySearchAppBar logout={logout} />
       <StyledUser>
+        <div
+          style={{
+            height: "70px",
+            width: "70px",
+            backgroundColor: "white",
+            borderRadius: "50%",
+            display: "inline-block",
+            border: "1px solid #d0d7de",
+            alignItems: "center",
+            justifyContent: "center",
+            alignContent: "center",
+            marginRight: "30px",
+          }}
+        >
+          pic
+        </div>
         {user.firstName} {user.lastName}
       </StyledUser>
       <hr />

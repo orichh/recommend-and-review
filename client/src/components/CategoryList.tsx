@@ -54,6 +54,7 @@ export const CategoryList = ({ listName, lists, setList }: ListType) => {
         flexDirection: "column",
         border: "1px solid #d0d7de",
         backgroundColor: "#F5F5F5",
+        borderRadius: "5px",
       }}
     >
       <div
@@ -66,7 +67,8 @@ export const CategoryList = ({ listName, lists, setList }: ListType) => {
           justifyContent: "space-evenly",
           alignItems: "center",
           // backgroundColor: "#1976d2",
-          color: "#1976d2",
+          color: "black",
+          height: "40px",
         }}
       >
         <h1>{listName}</h1>

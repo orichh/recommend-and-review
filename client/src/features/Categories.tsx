@@ -72,7 +72,7 @@ export const Categories = () => {
           Games
         </h1>
       </StyledHeader>
-      <hr />
+      {/* <hr /> */}
       <CategoryLists
         watched={watched}
         setWatched={setWatched}
