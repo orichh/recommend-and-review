@@ -25,8 +25,9 @@ export const InputField = ({
         display: "flex",
         flex: 10,
         margin: "3%",
-        minWidth: "159px",
-        width: "100%",
+        minWidth: "120px",
+        width: "95%",
+        backgroundColor: "white",
       }}
       type={revealPassword ? "text" : "password"}
       inputProps={{ maxLength: 50 }}

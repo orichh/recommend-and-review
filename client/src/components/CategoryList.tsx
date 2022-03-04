@@ -30,7 +30,7 @@ export const CategoryList = ({ listName, lists, setList }: ListType) => {
     const payload = {
       movieName: newItem,
       user_id: user.userId,
-      watched: false,
+      watched: listName === "Watched" ? true : false,
     };
     postRequest("/api/v1/movies", payload)
       .then((response) => {
@@ -52,20 +52,28 @@ export const CategoryList = ({ listName, lists, setList }: ListType) => {
       style={{
         display: "flex",
         flexDirection: "column",
-        border: "1px solid black",
+        border: "1px solid #d0d7de",
+        backgroundColor: "#F5F5F5",
       }}
     >
       <div
         style={{
           display: "flex",
           flexDirection: "row",
-          border: "1px solid black",
+          // border: "1px solid black",
           width: "100%",
-          minWidth: "15em",
+          minWidth: "18em",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+          // backgroundColor: "#1976d2",
+          color: "#1976d2",
         }}
       >
         <h1>{listName}</h1>
-        <button onClick={handleClick} style={{ cursor: "pointer" }}>
+        <button
+          onClick={handleClick}
+          style={{ cursor: "pointer", height: "fit-content" }}
+        >
           {showAddInput ? "close" : "add"}
         </button>
       </div>
@@ -83,7 +91,14 @@ export const CategoryList = ({ listName, lists, setList }: ListType) => {
         </div>
       ) : null}
       {lists.length ? (
-        <div style={{ overflowY: "scroll" }}>
+        <div
+          style={{
+            overflowY: "scroll",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           {lists.map((element, index, array) => {
             return <ListItem element={element} />;
           })}
