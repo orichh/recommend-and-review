@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import { LoggedIn, Login } from "../features";
+import { UserProfile, Login } from "../features";
 import { UserContext } from "../contexts/UserContext";
 import { UserFeed } from "../features/UserFeed";
 

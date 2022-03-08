@@ -25,18 +25,11 @@ export const login = (req: any, res: any) => {
 
         // if password matches, send back user id and user's lists
         if (userPassword === password) {
-          getUserLists(userId)
-            .then((response: any) => {
-              const payload = {
-                userId,
-                userInfo: { firstName, lastName, email },
-                data: response.rows,
-              };
-              res.send(payload);
-            })
-            .catch((error: any) => {
-              res.sendStatus(500);
-            });
+          const payload = {
+            userId,
+            userInfo: { firstName, lastName, email },
+          };
+          res.send(payload);
         } else {
           res.sendStatus(401);
         }

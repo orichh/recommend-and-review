@@ -1,7 +1,7 @@
 import { pool } from "../index";
 
 export const getAllMovies = () => {
-  const queryString = `SELECT * FROM movies;`;
+  const queryString = `SELECT * FROM movies limit 10;`;
   return pool.query(queryString);
 };
 

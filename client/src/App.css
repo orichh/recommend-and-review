@@ -19,12 +19,8 @@
   font-size: 30px;
 }
 
-h1 {
-  font-weight: 600;
-}
-
-hr {
+/* hr {
   height: 1px;
-  background-color: #d0d7de;
-  border: none;
-}
+  background-color: #000000;
+  border: 1px solid black;
+} */

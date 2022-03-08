@@ -1,7 +1,6 @@
 import { SignUpForm } from "./SignUpForm";
 import { Login } from "./Login";
-import { LoggedIn } from "./LoggedIn";
-import { Categories } from "./Categories";
-import { CategoryLists } from "./CategoryLists";
+import { UserProfile } from "./UserProfile";
+import { MoviesList } from "./MoviesList";
 
-export { SignUpForm, Login, LoggedIn, Categories, CategoryLists };
+export { SignUpForm, Login, UserProfile, MoviesList };

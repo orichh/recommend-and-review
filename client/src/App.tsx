@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { SignUp, Home, Feed } from "./routes";
+import { SignUp, Home, Feed, Movies } from "./routes";
 import "./App.css";
 
 function App() {
@@ -9,6 +9,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/feed" element={<Feed />} />
+        <Route path="/movies" element={<Movies />} />
       </Routes>
     </div>
   );

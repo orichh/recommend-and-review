@@ -12,10 +12,9 @@ export const UserProvider = ({ children }) => {
     email: "",
     auth: false,
   });
-  const [lists, setLists] = useState([]);
 
   // Login updates the user data with a name parameter
-  const login = ({ userId, userInfo, data }) => {
+  const login = ({ userId, userInfo }) => {
     setUser({
       userId,
       firstName: userInfo.firstName,
@@ -23,7 +22,6 @@ export const UserProvider = ({ children }) => {
       email: userInfo.email,
       auth: true,
     });
-    setLists(data);
   };
 
   // Logout updates the user data to default
@@ -38,7 +36,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, lists, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout }}>
       {children}
     </UserContext.Provider>
   );
