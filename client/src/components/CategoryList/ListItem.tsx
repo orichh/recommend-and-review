@@ -8,13 +8,13 @@ export const ListItem = ({ element }) => {
     );
   }, [element]);
   return (
-    <div className="w-1/5 mx-5 relative">
+    <div className="w-1/5 mx-5 relative flex flex-col items-center justify-center hover:bg-gray-100 hover:text-sky-400">
       {element ? (
         <>
           <img
             src={`https://image.tmdb.org/t/p/original${element.poster_path}`}
             alt={`Poster for ${element.original_title}`}
-            className="w-52"
+            className="w-52 cursor-pointer"
           />
           <h3>{element.original_title}</h3>
           <button

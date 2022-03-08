@@ -15,8 +15,8 @@ export const CategoryList = ({
 }: CategoryListType) => {
   return (
     <>
-      <div className="flex flex-col items-center w-full divide-y divide-black">
-        <div className="flex flex-row">
+      <div className="flex flex-col items-center w-full">
+        <div className="flex flex-row border-b justify-center border-gray-200 w-full bg-gray-50 text-gray-600 font-light">
           <h2>Movies</h2>
           <h2>TV Shows</h2>
           <h2>Books</h2>
