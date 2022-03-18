@@ -22,12 +22,13 @@ export const login = (req: any, res: any) => {
         const firstName = response.rows[0].first_name;
         const lastName = response.rows[0].last_name;
         const email = response.rows[0].email;
+        const username = response.rows[0].username;
 
         // if password matches, send back user id and user's lists
         if (userPassword === password) {
           const payload = {
             userId,
-            userInfo: { firstName, lastName, email },
+            userInfo: { firstName, lastName, email, username },
           };
           res.send(payload);
         } else {

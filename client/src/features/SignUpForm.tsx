@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getRequest, postRequest } from "../api/index";
 import { useRequest } from "../hooks";
 import { Checkbox, FormGroup } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import {
   GenericErrorMessage,
   Loading,
@@ -21,9 +22,11 @@ export const SignUpForm = (): JSX.Element => {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [revealPassword, setRevealPassword] = useState<Boolean>(false);
   const [formSubmitted, setFormSubmitted] = useState<Boolean>(false);
+  let navigate = useNavigate();
   // const [apiDataError, setApiDataError] = useState<Boolean>(false);
   // const { data, loading, error } = useRequest(getRequest, "form"); //prettier-ignore --- custom hook
 
@@ -33,6 +36,7 @@ export const SignUpForm = (): JSX.Element => {
       setFirstName("");
       setLastName("");
       setEmail("");
+      setUsername("");
       setPassword("");
       setRevealPassword(false);
       setFormSubmitted(false);
@@ -47,6 +51,7 @@ export const SignUpForm = (): JSX.Element => {
     if (field === "First Name") setFirstName(fieldValue);
     if (field === "Last Name") setLastName(fieldValue);
     if (field === "Email") setEmail(fieldValue);
+    if (field === "Username") setUsername(fieldValue);
     if (field === "Password") setPassword(fieldValue);
   };
 
@@ -55,7 +60,7 @@ export const SignUpForm = (): JSX.Element => {
     event.preventDefault();
 
     // validate all entries have at least one character
-    const isValid = [firstName, lastName, email, password].every(
+    const isValid = [firstName, lastName, email, username, password].every(
       (input) => input.length > 0
     );
 
@@ -63,6 +68,7 @@ export const SignUpForm = (): JSX.Element => {
       first_name: firstName,
       last_name: lastName,
       email: email,
+      username: username,
       password: password,
     };
 
@@ -71,8 +77,10 @@ export const SignUpForm = (): JSX.Element => {
         .then((response) => {
           alert("Account created!");
           setFormSubmitted(true);
+          navigate("/");
         })
         .catch((error) => {
+          console.log(error);
           alert("Sorry, there was an error...");
         });
     } else {
@@ -96,6 +104,13 @@ export const SignUpForm = (): JSX.Element => {
               handleChange={handleChange}
               label="Last Name"
               value={lastName}
+            />
+          </MultiFieldWrapper>
+          <MultiFieldWrapper>
+            <InputField
+              handleChange={handleChange}
+              label="Username"
+              value={username}
             />
           </MultiFieldWrapper>
 

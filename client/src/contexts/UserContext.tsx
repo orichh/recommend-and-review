@@ -9,6 +9,7 @@ export const UserProvider = ({ children }) => {
     userId: null,
     firstName: "",
     lastName: "",
+    username: "",
     email: "",
     auth: false,
   });
@@ -19,6 +20,7 @@ export const UserProvider = ({ children }) => {
       userId,
       firstName: userInfo.firstName,
       lastName: userInfo.lastName,
+      username: userInfo.username,
       email: userInfo.email,
       auth: true,
     });
@@ -30,6 +32,7 @@ export const UserProvider = ({ children }) => {
       userId: null,
       firstName: "",
       lastName: "",
+      username: "",
       email: "",
       auth: false,
     }));

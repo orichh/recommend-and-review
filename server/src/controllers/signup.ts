@@ -8,6 +8,7 @@ const userSchema = Joi.object({
   last_name: Joi.string()
     .pattern(/^[a-zA-Z]+$/, "Last name lowercase and capital letters")
     .required(), // check last name is provided and valid
+  username: Joi.string().required(),
   email: Joi.string().email().required(), // check valid email
   password: Joi.string().required(), // check password is present
 });

@@ -69,7 +69,7 @@ export const UserProfileHeader = ({
         >
           pic
         </div>
-        <div>{user.firstName}</div>
+        <div>{user.username}</div>
       </div>
       <div className="flex flex-row justify-center w-3/4 items-baseline border-b-2 border-black mt-0">
         <CategoryTitle

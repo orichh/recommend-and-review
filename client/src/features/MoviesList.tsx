@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Header } from "../components";
 import { UserContext } from "../contexts/UserContext";
-import { UserProfileHeader } from "./UserProfileHeader";
 import { getRequest } from "../api";
 import { CategoryList } from "../components";
 

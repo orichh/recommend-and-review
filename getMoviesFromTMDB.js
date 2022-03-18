@@ -7,6 +7,17 @@ const fastcsv = require("fast-csv");
 
 const BASE_URL = axios.create({baseURL: "https://api.themoviedb.org/3"}) //prettier-ignore
 
+const mongoose = require("mongoose");
+
+mongoose
+  .connect("mongodb://localhost:27017/movies")
+  .then((s) => {
+    console.log("connected to db!");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 const getRequest = (url) => {
   return BASE_URL({
     method: "GET",
@@ -14,8 +25,37 @@ const getRequest = (url) => {
   });
 };
 
+const movieSchema = new mongoose.Schema({
+  adult: Boolean,
+  backdrop_path: String,
+  belongs_to_collection: Object,
+  budget: Number,
+  genres: Array,
+  homepage: String,
+  id: Number,
+  imdb_id: String,
+  original_language: String,
+  original_title: String,
+  overview: String,
+  popularity: Number,
+  poster_path: String,
+  production_companies: Array,
+  production_countries: Array,
+  release_date: Date,
+  revenue: Number,
+  runtime: Number,
+  spoken_languages: Array,
+  status: String,
+  tagline: String,
+  video: Boolean,
+  vote_average: Number,
+  vote_count: Number,
+});
+
+const Movie = mongoose.model("Movies", movieSchema);
+
 const API_KEY = "c830dcc3003581da27a70fe0d8cf8fb5";
-const movie_id = "550";
+// const movie_id = "550";
 
 const getMovies = (movie_id, API_KEY) => {
   const combinedUrl = "/movie/" + movie_id + "?api_key=" + API_KEY;
@@ -34,98 +74,22 @@ async function processLineByLine() {
 
   let counter = 0;
   for await (const line of rl) {
-    // if (counter === 10000) break;
+    // if (counter === 1000) break;
+    if (counter % 10000 === 0) console.log(counter);
     const parsed = JSON.parse(line);
     const { id } = parsed; // movie id to pass to getMovies
-    const isValid = (obj) => {
-      for (const key in obj) {
-        if (obj[key] === null || obj[key] === "") {
-          return false;
-        }
-      }
-      return true;
-    };
 
     getMovies(id.toString(), API_KEY)
       .then((response) => {
-        console.log("response", response.data);
-        const {
-          id,
-          original_title,
-          release_date,
-          overview,
-          tagline,
-          poster_path,
-          backdrop_path,
-          imdb_id,
-          vote_average,
-          vote_count,
-          original_language,
-          budget,
-          revenue,
-          status,
-          video,
-        } = response.data;
-
-        const data = {
-          id,
-          original_title,
-          release_date,
-          overview,
-          tagline,
-          poster_path,
-          backdrop_path,
-          imdb_id,
-          vote_average,
-          vote_count,
-          original_language,
-          budget,
-          revenue,
-          status,
-          video,
-        };
-
-        if (isValid(data) === true) {
-          ws.write(
-            id +
-              "\t" +
-              original_title +
-              "\t" +
-              release_date +
-              "\t" +
-              overview +
-              "\t" +
-              tagline +
-              "\t" +
-              poster_path +
-              "\t" +
-              backdrop_path +
-              "\t" +
-              imdb_id +
-              "\t" +
-              vote_average +
-              "\t" +
-              vote_count +
-              "\t" +
-              original_language +
-              "\t" +
-              budget +
-              "\t" +
-              revenue +
-              "\t" +
-              status +
-              "\t" +
-              video +
-              "\n",
-            "utf-8"
-          );
-        }
+        const movie = new Movie(response.data);
+        movie.save().catch((err) => {
+          return;
+        });
       })
       .catch((error) => {
-        console.log("🚀 ~ file: test.js ~ line 10 ~ error", error);
-        errorWS.write(id);
+        errorWS.write(id.toString() + "\n", "utf-8");
       });
-    // counter++;
+    counter++;
   }
 }
 
