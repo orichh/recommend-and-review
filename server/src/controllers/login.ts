@@ -10,6 +10,7 @@ const userSchema = Joi.object({
 });
 
 export const login = async (req: any, res: any) => {
+  console.log("line 13", req.signedCookies["access-token"]);
   // validate user submitted info
   const { error, value } = userSchema.validate(req.body);
 
@@ -53,6 +54,8 @@ export const login = async (req: any, res: any) => {
         res.clearCookie("access-token");
         res.cookie("access-token", accessToken, {
           maxAge: 30 * 60 * 60 * 24 * 1000,
+          httpOnly: true,
+          signed: true,
         });
         console.log(res.cookie);
         res.sendStatus(200);

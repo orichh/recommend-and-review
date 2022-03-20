@@ -30,6 +30,13 @@ const logger = pinoHttp(
 // express middleware
 // prettier-ignore
 config(); // dotenv process
+let secret: string;
+if (process.env.SECRET_KEY) {
+  secret = process.env.SECRET_KEY;
+} else {
+  throw new Error("secret environment variable is not set");
+}
+
 app.use(express.json()); // parse JSON payloads
 app.use(helmet()); // set security-related HTTP response headers
 const expressRateLimiter = rateLimit({
@@ -40,7 +47,7 @@ const expressRateLimiter = rateLimit({
 });
 app.use(expressRateLimiter); // limits amount of requests to the server
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use(cookieParser());
+app.use(cookieParser(secret));
 app.use(
   cors({
     origin: "http://localhost:3000",

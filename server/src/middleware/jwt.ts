@@ -25,10 +25,16 @@ const validateToken = (req: any, res: any, next: Function) => {
     return res.status(400).json({ error: "User forbidden, please log in" });
 
   try {
-    const validToken = verify(accessToken, "examplesecretchangethis");
-    if (validToken) {
-      req.authenticated = true;
-      next();
+    let secret: any;
+    if (process.env.SECRET_KEY) {
+      secret = process.env.SECRET_KEY;
+      const validToken = verify(accessToken, secret);
+      if (validToken) {
+        req.authenticated = true;
+        next();
+      } else {
+        throw new Error("secret environment variable is not set");
+      }
     }
   } catch (err) {
     return res.status(400).json({ error: err });
