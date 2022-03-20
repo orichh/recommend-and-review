@@ -1,3 +1,4 @@
+import { config } from "dotenv";
 import express, { Request, Response, Application } from "express";
 import Joi from "joi";
 import helmet from "helmet";
@@ -6,11 +7,11 @@ import cors from "cors";
 import fs from "fs";
 import pinoHttp from "pino-http";
 import path from "path";
-import { config } from "dotenv";
 import swaggerUi from "swagger-ui-express";
 import * as swaggerDocument from "./swagger.json";
 import { placeholder } from "./helpers/index";
 import { router } from "./routes";
+import cookieParser from "cookie-parser";
 
 // initialize server
 const app: Application = express();
@@ -30,7 +31,6 @@ const logger = pinoHttp(
 // prettier-ignore
 config(); // dotenv process
 app.use(express.json()); // parse JSON payloads
-app.use(cors());
 app.use(helmet()); // set security-related HTTP response headers
 const expressRateLimiter = rateLimit({
   windowMs: 60 * 1000, // 60 seconds
@@ -40,6 +40,14 @@ const expressRateLimiter = rateLimit({
 });
 app.use(expressRateLimiter); // limits amount of requests to the server
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+    credentials: true,
+  })
+);
 
 const addPointsSchema = Joi.object({
   payer: Joi.string()

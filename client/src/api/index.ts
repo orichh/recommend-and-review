@@ -7,6 +7,7 @@ export const getRequest = (url: string, data?: any) => {
     method: "GET",
     url: url,
     data: data,
+    withCredentials: true,
   });
 };
 
@@ -15,6 +16,7 @@ export const postRequest = (url: string, data: any) => {
     method: "POST",
     url: url,
     data: data,
+    withCredentials: true,
   });
 };
 
@@ -23,5 +25,6 @@ export const deleteRequest = (url: string, data: any) => {
     method: "DELETE",
     url: url,
     data: data,
+    withCredentials: true,
   });
 };

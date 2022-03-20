@@ -74,21 +74,22 @@ async function processLineByLine() {
 
   let counter = 0;
   for await (const line of rl) {
-    // if (counter === 1000) break;
+    // if (counter === 5) break;
     if (counter % 10000 === 0) console.log(counter);
     const parsed = JSON.parse(line);
     const { id } = parsed; // movie id to pass to getMovies
 
-    getMovies(id.toString(), API_KEY)
-      .then((response) => {
-        const movie = new Movie(response.data);
-        movie.save().catch((err) => {
-          return;
-        });
-      })
-      .catch((error) => {
+    const foundMovie = await Movie.find({ id: id });
+    if (!foundMovie.length) {
+      try {
+        const response = await getMovies(id.toString(), API_KEY);
+        const { data } = response;
+        const movie = new Movie(data);
+        movie.save().catch((err) => console.log("exists already", counter));
+      } catch {
         errorWS.write(id.toString() + "\n", "utf-8");
-      });
+      }
+    }
     counter++;
   }
 }
