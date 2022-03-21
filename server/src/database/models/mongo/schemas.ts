@@ -65,5 +65,5 @@ export const movieSchema = new Schema({
 export const sessionSchema = new Schema({
   session_id: String,
   user_id: String,
-  expires: { type: Date, expires: 60 },
+  expires: { type: Date, index: { expireAfterSeconds: 24 * 60 * 60 * 1000 } },
 });
