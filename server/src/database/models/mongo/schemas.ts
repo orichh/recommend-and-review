@@ -61,3 +61,9 @@ export const movieSchema = new Schema({
   vote_average: Number,
   vote_count: Number,
 });
+
+export const sessionSchema = new Schema({
+  session_id: String,
+  user_id: String,
+  expires: { type: Date, expires: 60 },
+});

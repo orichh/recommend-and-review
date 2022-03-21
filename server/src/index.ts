@@ -11,10 +11,19 @@ import swaggerUi from "swagger-ui-express";
 import * as swaggerDocument from "./swagger.json";
 import { placeholder } from "./helpers/index";
 import { router } from "./routes";
-import cookieParser from "cookie-parser";
+import session from "express-session";
+import connectRedis from "connect-redis";
+import { createClient } from "redis";
 
 // initialize server
 const app: Application = express();
+
+let RedisStore = connectRedis(session);
+const redisClient = createClient({ legacyMode: true });
+redisClient
+  .connect()
+  .then(() => console.log("connected to redis"))
+  .catch(console.error);
 
 // Create server logging stream to access log file
 // prettier-ignore
@@ -47,12 +56,20 @@ const expressRateLimiter = rateLimit({
 });
 app.use(expressRateLimiter); // limits amount of requests to the server
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use(cookieParser(secret));
 app.use(
   cors({
     origin: "http://localhost:3000",
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
     credentials: true,
+  })
+);
+app.use(
+  session({
+    secret: secret,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 15 * 1000 },
+    store: new RedisStore({ client: redisClient } as any),
   })
 );
 

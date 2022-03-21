@@ -1,7 +1,7 @@
 import Joi from "joi";
 import * as bcrypt from "bcrypt";
 import { getUserLists, getPasswordForUser } from "../database/models";
-import { User } from "../database/models/mongo";
+import { addSession, User } from "../database/models/mongo";
 import { createToken } from "../middleware/jwt";
 
 const userSchema = Joi.object({
@@ -10,7 +10,6 @@ const userSchema = Joi.object({
 });
 
 export const login = async (req: any, res: any) => {
-  console.log("line 13", req.signedCookies["access-token"]);
   // validate user submitted info
   const { error, value } = userSchema.validate(req.body);
 
@@ -50,17 +49,32 @@ export const login = async (req: any, res: any) => {
       let passwordMatch = await bcrypt.compare(password, user.password);
       if (passwordMatch === true) {
         const { username } = user;
-        const accessToken = await createToken(user._id);
-        res.clearCookie("access-token");
-        res.cookie("access-token", accessToken, {
-          maxAge: 30 * 60 * 60 * 24 * 1000,
-          httpOnly: true,
-          signed: true,
+        console.log(
+          "entire request session object",
+          req.session.cookie._expires
+        );
+        console.log("request session id", req.session.id);
+        req.session.isAuth = true;
+        const expireDate = new Date(req.session.cookie._expires);
+        const expireTime = expireDate.getTime();
+        addSession({
+          session_id: req.session.id,
+          user_id: user._id,
+          expires: expireTime,
         });
-        console.log(res.cookie);
-        res.sendStatus(200);
+        // expires -> req.session.cookie._expires
+
+        // console.log("request session object 🤡", req.session);
+        // console.log("session id", req.session.id);
+        res.status(200).send({
+          username: user.username,
+          private_profile: user.private_profile,
+          bio: user.bio,
+          profile_picture: user.profile_picture,
+        });
       }
-    } catch {
+    } catch (error) {
+      console.log("🚀 ~ file: login.ts ~ line 65 ~ login ~ error", error);
       res.send("email or password incorrect").status(400);
     }
   } else {

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import { InputField, SubmitButton } from "../components";
 import {
@@ -18,6 +18,7 @@ export const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [revealPassword, setRevealPassword] = useState<Boolean>(false);
   const { login } = useContext(UserContext);
+  const navigate = useNavigate();
 
   // handle user input and update state accordingly
   const handleChange = (event: any) => {
@@ -45,6 +46,11 @@ export const Login = () => {
         login(response.data);
       })
       .catch((error: any) => {
+        console.log(
+          "🚀 ~ file: Login.tsx ~ line 51 ~ handleSubmit ~ error",
+          error
+        );
+
         alert("wrong email or password");
       });
   };
